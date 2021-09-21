@@ -28,7 +28,7 @@ import sys
 from google.ads.googleads.client import GoogleAdsClient
 from google.ads.googleads.errors import GoogleAdsException
 
-from base_func_module import BaseFuncModule
+from src.base_func_module import BaseFuncModule
 
 class AccountHierarchyModule():
 
@@ -130,6 +130,7 @@ class AccountHierarchyModule():
                             unprocessed_customer_ids.append(customer_client.id)
 
             if root_customer_client is not None:
+                print()
                 print(
                     "The hierarchy of customer ID "
                     f"{root_customer_client.id} is printed below:"
@@ -152,7 +153,7 @@ class AccountHierarchyModule():
         if depth == 0:
             print("Customer ID (Descriptive Name, Currency Code, Time Zone)")
         customer_id = customer_client.id
-        print("-" * (depth * 2), end="")
+        print("-" * (depth * 4), end="")
         print(
             f"{customer_id} ({customer_client.descriptive_name}, "
             f"{customer_client.currency_code}, "

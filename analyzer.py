@@ -22,9 +22,9 @@ import sys
 from google.ads.googleads.client import GoogleAdsClient
 from google.ads.googleads.errors import GoogleAdsException
 
-from base_func_module import BaseFuncModule
-from account_hierarchy_module import AccountHierarchyModule
-from get_users_module import GetUsersModule
+from src.base_func_module import BaseFuncModule
+from src.account_hierarchy_module import AccountHierarchyModule
+from src.get_users_module import GetUsersModule
 
 
 if __name__ == "__main__":
@@ -72,11 +72,13 @@ if __name__ == "__main__":
     try:
         hierarchy_obj = AccountHierarchyModule(googleads_client, args.customer_id)
         hierarchy_obj.main()
+        print()
     except GoogleAdsException as ex:
         base_func_obj.print_ex(ex)
 
     try:
         users_obj = GetUsersModule(googleads_client, args.customer_id)
         users_obj.main()
+        print()
     except GoogleAdsException as ex:
         base_func_obj.print_ex(ex)

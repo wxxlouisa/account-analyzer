@@ -21,7 +21,7 @@ import sys
 from google.ads.googleads.client import GoogleAdsClient
 from google.ads.googleads.errors import GoogleAdsException
 
-from base_func_module import BaseFuncModule
+from src.base_func_module import BaseFuncModule
 
 class GetUsersModule():
 
