@@ -1,7 +1,6 @@
 # account-analyzer
 
 This is an Account Analyzer tool based on google-ads-python.
-This is my [design doc url][0].
 
 ------------
 Requirements
