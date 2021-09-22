@@ -4,7 +4,6 @@ This is an Account Analyzer tool based on google-ads-python.
 
 ------------
 Requirements
-------------
 * Python 3.7+
 
 Documentation
