@@ -5,13 +5,18 @@ from google.ads.googleads.errors import GoogleAdsException
 
 class BaseFuncModule():
 
-    def __init__(self, print_details = None):
+    def __init__(self, print_details = True):
         self.print_details = print_details
 
     def print_ex(self, ex):
         print(
             f'Request with ID "{ex.request_id}" failed with status '
-            f'"{ex.error.code().name}" and includes the following errors:'
+            f'"{ex.error.code().name}" '
+        )
+        if self.print_details==False:
+            return
+        print(
+            f'And includes the following errors:'
         )
         for error in ex.failure.errors:
             print(f'\tError with message "{error.message}".')

@@ -32,7 +32,7 @@ from src.base_func_module import BaseFuncModule
 
 class AccountHierarchyModule():
 
-    def __init__(self, client, customer_id):
+    def __init__(self, client, customer_id = None):
         self.google_ads_client = client
         self.login_customer_id = customer_id
         self.base_func_obj = BaseFuncModule()
@@ -67,20 +67,23 @@ class AccountHierarchyModule():
                 "No manager ID is specified. The example will print the "
                 "hierarchies of all accessible customer IDs."
             )
-
-            customer_resource_names = (
-                customer_service.list_accessible_customers().resource_names
-            )
+            accessible_customers = customer_service.list_accessible_customers()
+            result_total = len(accessible_customers.resource_names)
+            print(f"Total results: {result_total}")
+            customer_resource_names = accessible_customers.resource_names
+            for resource_name in customer_resource_names:
+                print(f'Customer resource name: "{resource_name}"')
+            # [END list_accessible_customers]
 
             for customer_resource_name in customer_resource_names:
                 try:
+                    # must be set in the login_customer_id
                     customer = customer_service.get_customer(
                         resource_name=customer_resource_name
                     )
+                    print("The customer ID is: ", customer.id)
                 except GoogleAdsException as ex:
-                    # self.base_func_obj.print_ex(ex)
                     continue
-                print("The customer ID is: ", customer.id)
                 seed_customer_ids.append(customer.id)
 
         for seed_customer_id in seed_customer_ids:

@@ -39,7 +39,7 @@ if __name__ == "__main__":
         "-c",
         "--customer_id",
         type=str,
-        required=True,
+        required=False,
         help="The Google Ads customer ID.",
     )
     parser.add_argument(
@@ -51,17 +51,18 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "-vv",
-        "--print_exception_details",
+        "--print_details",
         type=str,
         required=False,
-        help="Print exception in detail. If none provided, the default value will be false "
+        help="Print in detail. If none provided, the default value will be True."
     )
     args = parser.parse_args()
 
     required_version = args.google_ads_version
     if required_version == None:
         required_version = "v8"
-    base_func_obj = BaseFuncModule(args.print_exception_details)
+
+    base_func_obj = BaseFuncModule(args.print_details)
 
     try:
         googleads_client = GoogleAdsClient.load_from_storage(version=args.google_ads_version)
@@ -69,12 +70,14 @@ if __name__ == "__main__":
         base_func_obj.print_ex(ex)
         sys.exit(1)
 
+
     try:
         hierarchy_obj = AccountHierarchyModule(googleads_client, args.customer_id)
         hierarchy_obj.main()
         print()
     except GoogleAdsException as ex:
-        base_func_obj.print_ex(ex)
+#        base_func_obj.print_ex(ex)
+        pass
 
     try:
         users_obj = GetUsersModule(googleads_client, args.customer_id)
@@ -82,3 +85,4 @@ if __name__ == "__main__":
         print()
     except GoogleAdsException as ex:
         base_func_obj.print_ex(ex)
+        pass
