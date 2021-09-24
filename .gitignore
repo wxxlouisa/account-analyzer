@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+src/main.py
+src/service_gap.md
+src/__pycache__
+front-end/
+service_gap.md
