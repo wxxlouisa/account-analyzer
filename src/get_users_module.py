@@ -43,7 +43,7 @@ class GetUsersModule():
         FROM customer_user_access
         """
         search_request = self.google_ads_client.get_type("SearchGoogleAdsRequest")
-        search_request.customer_id = self.login_customer_id
+        search_request.customer_id = str(self.login_customer_id)
         search_request.query = query
         response = googleads_service.search(request=search_request)
 

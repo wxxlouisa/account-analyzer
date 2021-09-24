@@ -26,6 +26,34 @@ from src.base_func_module import BaseFuncModule
 from src.account_hierarchy_module import AccountHierarchyModule
 from src.get_users_module import GetUsersModule
 
+def fetch_login_customer_id(google_ads_client, customer_id) -> str:
+    if customer_id is not None:
+        return customer_id
+    else:
+        print(
+                "No manager ID is specified. The example will print the "
+                "hierarchies of all accessible customer IDs."
+            )
+        customer_service = google_ads_client.get_service("CustomerService")
+
+        accessible_customers = customer_service.list_accessible_customers()
+        result_total = len(accessible_customers.resource_names)
+        print(f"Total results: {result_total}")
+        customer_resource_names = accessible_customers.resource_names
+        for resource_name in customer_resource_names:
+            print(f'Customer resource name: "{resource_name}"')
+        # [END list_accessible_customers]
+
+        for customer_resource_name in customer_resource_names:
+            try:
+                # must be set in the login_customer_id
+                customer = customer_service.get_customer(
+                    resource_name=customer_resource_name
+                )
+                print("The customer ID is: ", customer.id)
+                return customer.id
+            except GoogleAdsException as ex:
+                continue
 
 if __name__ == "__main__":
     # GoogleAdsClient will read the google-ads.yaml configuration file in the
@@ -70,9 +98,10 @@ if __name__ == "__main__":
         base_func_obj.print_ex(ex)
         sys.exit(1)
 
+    login_customer_id = fetch_login_customer_id(googleads_client, args.customer_id)
 
     try:
-        hierarchy_obj = AccountHierarchyModule(googleads_client, args.customer_id)
+        hierarchy_obj = AccountHierarchyModule(googleads_client, login_customer_id)
         hierarchy_obj.main()
         print()
     except GoogleAdsException as ex:
@@ -80,7 +109,7 @@ if __name__ == "__main__":
         pass
 
     try:
-        users_obj = GetUsersModule(googleads_client, args.customer_id)
+        users_obj = GetUsersModule(googleads_client, login_customer_id)
         users_obj.main()
         print()
     except GoogleAdsException as ex:
