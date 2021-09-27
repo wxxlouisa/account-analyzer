@@ -11,7 +11,7 @@ Documentation
 ------------
 ### step 1
 
-Firstly copy the ```account-analyzer/fake-google-ads.yaml```  into your home directory and rename it:
+Firstly copy the ```account-analyzer/account-analyzer-demo.yaml```  into your home directory and rename it:
 ```bash
 cp account-analyzer-demo.yaml $HOME/account-analyzer-demo.yaml
 ```
