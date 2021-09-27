@@ -13,7 +13,7 @@ Documentation
 
 Firstly copy the ```account-analyzer/fake-google-ads.yaml```  into your home directory and rename it:
 ```bash
-cp fake-google-ads.yaml $HOME/google-ads.yaml
+cp account-analyzer-demo.yaml $HOME/account-analyzer-demo.yaml
 ```
 To get a quick start, you're suggested to follow the [Google Ads API Quickstart][2] to prepare the correct Developer token as well as other secrets, using your ```google-ads.yaml``` to config them. Make sure every insertion is ready.
 
